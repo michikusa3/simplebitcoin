@@ -16,7 +16,7 @@ def __handle_message(args_tuple):
 
 def __get_myip():
     s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-    s.connet(('8.8.8.8',80))
+    s.connect(('8.8.8.8',80))
     return s.getsockname()[0]
 
 def main():
@@ -26,7 +26,7 @@ def main():
     my_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
     #多重接続担ってもいいようにスレッドで処理する
-    executor = ThreadPoolExecutor(max_worker=os.cpu_count())
+    executor = ThreadPoolExecutor(max_workers=os.cpu_count())
 
     # 開くポート番号は適当に選ぶ
     myhost = __get_myip()
@@ -39,7 +39,7 @@ def main():
         # 接続がある迄待機
         print('Waitng for the connection ...')
         conn, addr = my_socket.accept()
-        print('Connented by .. ',addr)
+        print('Connected by .. ',addr)
         data_sum = ''
         executor.submit(__handle_message,(conn,addr,data_sum))
 

@@ -26,7 +26,7 @@ def main():
     my_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
     #多重接続担ってもいいようにスレッドで処理する
-    executor = ThreadPoolExecutor(max_workers=os.cpu_count())
+    executor = ThreadPoolExecutor(max_workers=10)
 
     # 開くポート番号は適当に選ぶ
     myhost = __get_myip()
